@@ -10,7 +10,9 @@ import javax.jms.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +40,19 @@ public class PlanetController {
         result.add(new Planet("Alderon", true));
         return result;
     }
+    
+    @RequestMapping(value = "/planet/{name}", method = RequestMethod.DELETE)
+    public String obliterate(@PathVariable("name") String name) {
+        MessageCreator messageCreator = new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(name);
+            }
+        };
+        
+        jmsTemplate.send("planetBlowup", messageCreator);
+
+        return String.format("obliterated %s", name);
+    }
+
 }
