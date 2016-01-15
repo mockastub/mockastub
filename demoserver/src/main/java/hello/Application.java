@@ -2,6 +2,7 @@ package hello;
 
 import javax.jms.ConnectionFactory;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +14,11 @@ import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 @EnableJms
 public class Application {
 
-
-    @Bean // Strictly speaking this bean is not necessary as boot creates a default
-    JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
-        SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        return factory;
+    @Bean
+    public ActiveMQConnectionFactory connectionFactory() {
+        ActiveMQConnectionFactory result = new ActiveMQConnectionFactory();
+        result.setBrokerURL("tcp://localhost:61616");
+        return result;
     }
 
     public static void main(String[] args) {

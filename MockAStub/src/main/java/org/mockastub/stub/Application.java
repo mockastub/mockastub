@@ -26,15 +26,15 @@ public class Application {
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public BrokerService mainBroker() throws Exception {
-        return BrokerFactory.createBroker("broker:(tcp://localhost:61616,network:static:tcp://remotehost:61616)?persistent=false&useJmx=true");
+        return BrokerFactory.createBroker("broker:(tcp://localhost:61616)?persistent=false&useJmx=true");
     }
 
-    
-//    @Bean
-//    public ActiveMQConnectionFactory connectionFactory() {
-//        ActiveMQConnectionFactory result = new ActiveMQConnectionFactory();
-//        return result;
-//    }
+    @Bean
+    public ActiveMQConnectionFactory connectionFactory() {
+        ActiveMQConnectionFactory result = new ActiveMQConnectionFactory();
+        result.setBrokerURL("tcp://localhost:61616");
+        return result;
+    }
     
     @Bean
     public JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
@@ -49,17 +49,6 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-
-        // Send a message
-        MessageCreator messageCreator = new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage("ping!");
-            }
-        };
-        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-        System.out.println("Sending a new message.");
-        jmsTemplate.send("mailbox-destination", messageCreator);   
+        SpringApplication.run(Application.class, args);   
     }
 }
