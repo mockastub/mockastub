@@ -32,7 +32,7 @@ public class MessageProviderServlet extends AbderaServlet {
 		wi.setTitle("Stub message Directory Workspace");
 		wi.addCollection(ca);
 
-		DefaultProvider provider = new DefaultProvider("/");
+		DefaultProvider provider = new DefaultProvider("/viewer");
 		provider.addWorkspace(wi);
 
 		provider.init(getAbdera(), null);
