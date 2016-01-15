@@ -4,9 +4,11 @@
 package org.mockastub.stub;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.mockastub.viewer.atom.MessageEntry;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +57,10 @@ public class MessageStore {
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public Collection<MessageEntry> get() {
-        return getEntities();
+        return getEntities()
+            .stream()
+            .sorted((a,b) -> a.getUpdated().compareTo(b.getUpdated()))
+            .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/view/{messageId}", method = RequestMethod.POST)
