@@ -26,11 +26,10 @@ public class Receiver {
     }
     
     @JmsListener(destination = "planetSearch", containerFactory = "myJmsContainerFactory")
-    @SendTo("planetResponse")
+    @SendTo("planetSearchResponse")
     public String planetSearch(String message) {
-        String key = String.valueOf(message.hashCode()); 
         logMessageIn(message);        
-        String response = requestResponseMapper.getResponseFor(key);
+        String response = requestResponseMapper.getResponseFor(message);
         logMessageOut(message);        
         return response;
     }
@@ -55,8 +54,11 @@ public class Receiver {
     }
 
     @JmsListener(destination = "planetBlowup", containerFactory = "myJmsContainerFactory")
-    @SendTo("planetResponse")
+    @SendTo("planetBlowupResponse")
     public String receiveMessage(String message) {
-        return "Received obliterated <" + message + ">";
+        logMessageIn(message);        
+        String response = requestResponseMapper.getResponseFor(message);
+        logMessageOut(message);        
+        return response;
     }
 }

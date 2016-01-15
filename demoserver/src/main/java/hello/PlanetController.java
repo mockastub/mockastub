@@ -36,7 +36,7 @@ public class PlanetController {
         };
 
         jmsTemplate.send("planetSearch", messageCreator);
-        TextMessage msg = (TextMessage) jmsTemplate.receive("planetResponse");
+        TextMessage msg = (TextMessage) jmsTemplate.receive("planetSearchResponse");
 
         List<Planet> planetList = new ArrayList<Planet>();
         try {
@@ -49,11 +49,10 @@ public class PlanetController {
         } catch (JMSException e) {
             throw new Exception("not connected to the MockerAStub.", e);
         }
-
     }
 
     @RequestMapping(value = "/planet/{name}", method = RequestMethod.DELETE)
-    public String obliterate(@PathVariable("name") String name) {
+    public String obliterate(@PathVariable("name") String name) throws Exception {
         MessageCreator messageCreator = new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
@@ -62,10 +61,14 @@ public class PlanetController {
         };
 
         jmsTemplate.send("planetBlowup", messageCreator);
+        TextMessage msg = (TextMessage) jmsTemplate.receive("planetBlowupResponse");
 
-        String response = String.format("{\"message\":\"%s\"}", String.format("obliterated %s", name));
-        System.out.println(response);
-        return response;
+        try {
+            String aa = String.format("{\"message\":\"%s\"}", msg.getText());
+            return aa;
+        } catch (JMSException e) {
+            throw new Exception("not connected to the MockerAStub.", e);
+        }
     }
 
 }
