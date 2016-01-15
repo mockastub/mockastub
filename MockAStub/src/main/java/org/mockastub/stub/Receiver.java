@@ -30,7 +30,7 @@ public class Receiver {
     public String planetSearch(String message) {
         logMessageIn(message);        
         String response = requestResponseMapper.getResponseFor(message);
-        logMessageOut(message);        
+        logMessageOut(response);        
         return response;
     }
 
@@ -58,7 +58,7 @@ public class Receiver {
     public String receiveMessage(String message) {
         logMessageIn(message);        
         String response = requestResponseMapper.getResponseFor(message);
-        logMessageOut(message);        
+        logMessageOut(response);        
         return response;
     }
 }
