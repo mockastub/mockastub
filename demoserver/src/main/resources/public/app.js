@@ -1,6 +1,6 @@
 var app = angular.module('myApp',['ngRoute'])
 
-app.config(function ($routeProvider) {
+app.config(($routeProvider) => {
     $routeProvider
 
     .when('/', {
@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
     })
 })
 
-app.controller('MainCtrl', function($scope, $http){
+app.controller('MainCtrl', ($scope, $http) => {
     $scope.getHostilePlanets = () => {
         $http.get('/planets?hostile=true&location=1,2,3')
         .then((response) => {
