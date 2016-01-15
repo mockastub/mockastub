@@ -13,8 +13,7 @@ import org.apache.abdera.model.Content;
 import org.apache.abdera.model.Person;
 import org.apache.abdera.protocol.server.RequestContext;
 import org.apache.abdera.protocol.server.context.ResponseContextException;
-import org.apache.abdera.protocol.server.impl.AbstractEntityCollectionAdapter;
-import org.apache.commons.collections.iterators.EntrySetMapIterator;;
+import org.apache.abdera.protocol.server.impl.AbstractEntityCollectionAdapter;;
 
 /**
  * @author claus
