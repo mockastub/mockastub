@@ -51,8 +51,10 @@ public class PlanetController {
         };
         
         jmsTemplate.send("planetBlowup", messageCreator);
-
-        return String.format("obliterated %s", name);
+        
+        String response = String.format("{\"message\":\"%s\"}", String.format("obliterated %s", name));
+        System.out.println(response);
+        return response;
     }
 
 }
