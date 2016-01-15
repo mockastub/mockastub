@@ -5,8 +5,10 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
+import org.mockastub.viewer.atom.MessageProviderServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.EnableJms;
@@ -24,6 +26,11 @@ public class Application {
         SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         return factory;
+    }
+
+    @Bean // Strictly speaking this bean is not necessary as boot creates a default
+    ServletRegistrationBean myServletRegistrationBean(ConnectionFactory connectionFactory) {
+    	return new ServletRegistrationBean(new MessageProviderServlet(), "/viewer/*");
     }
 
     public static void main(String[] args) {
