@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class MessageStore {
-	private Map<String, MessageEntry> messages = new HashMap<String, MessageEntry>();
-	private long nextId = 0;
+	private static Map<String, MessageEntry> messages = new HashMap<String, MessageEntry>();
+	private static long nextId = 0;
 
-	private String getAndIncrementNextId() {
+	private static synchronized String getAndIncrementNextId() {
 		String result = Long.toString(nextId++);
 		return result;
 	}
@@ -31,7 +31,7 @@ public class MessageStore {
 		return messages.get(entryId);
 	}
 
-	public Collection<MessageEntry> getEnties() {
+	public Collection<MessageEntry> getEntities() {
 		return messages.values();
 	}
 
@@ -52,7 +52,7 @@ public class MessageStore {
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public Collection<MessageEntry> get() {
-		return getEnties();
+		return getEntities();
 	}
 
 	@RequestMapping(value = "/view/{messageId}", method = RequestMethod.PUT)
