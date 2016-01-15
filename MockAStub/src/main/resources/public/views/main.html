@@ -1,0 +1,10 @@
+<div class="col-md-4 col-md-offset-4">
+    <h1>Messages</h1>
+    <table class="table table-striped">
+        <tr ng-repeat="item in messages">
+            <td>{{item.title}}</td>
+            <td>{{item.message}}</td>
+            <td>{{item.date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </table>
+</div>
