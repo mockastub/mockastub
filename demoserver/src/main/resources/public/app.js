@@ -28,8 +28,6 @@ app.controller('MainCtrl', function($scope, $http){
         $http.delete('/planet/' + target.name)
         .then((response) => {
             console.log(response)
-        }, (response) => {
-            console.err(response)
         })
     }
 })
