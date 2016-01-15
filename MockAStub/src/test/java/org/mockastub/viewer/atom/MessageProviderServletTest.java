@@ -10,25 +10,28 @@ public class MessageProviderServletTest {
 
 //	@Test
 //	public void testDoGet() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	public void testDoPost() {
 //		Client client = new Client();
-//		ClientResponse resp = client.post("1", "Unittest title", "payload of unittest");
-//		assertTrue(resp.getType()==ResponseType.SUCCESS);
-//
+//		String resp = client.get();
+//		System.out.println(resp);
+//		assertTrue("  ".equals(resp));
 //	}
 
-//	@Test
-//	public void testDoPut() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testDoDelete() {
-//		fail("Not yet implemented");
-//	}
+//	 @Test
+//	 public void testDoPost() {
+//	 Client client = new Client();
+//	 ClientResponse resp = client.post("1", "Unittest title", "payload of unittest");
+//	 assertTrue(resp.getType()==ResponseType.SUCCESS);
+//	
+//	 }
+
+	// @Test
+	// public void testDoPut() {
+	// fail("Not yet implemented");
+	// }
+	//
+	// @Test
+	// public void testDoDelete() {
+	// fail("Not yet implemented");
+	// }
 
 }

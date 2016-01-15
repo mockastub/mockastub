@@ -1,24 +1,18 @@
 package org.mockastub.stub;
 
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerFactory;
 import org.apache.activemq.broker.BrokerService;
-import org.mockastub.viewer.atom.MessageProviderServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
+
 
 @SpringBootApplication
 @EnableJms
@@ -43,10 +37,10 @@ public class Application {
         return factory;
     }
 
-    @Bean // Strictly speaking this bean is not necessary as boot creates a default
-    ServletRegistrationBean myServletRegistrationBean(ConnectionFactory connectionFactory) {
-    	return new ServletRegistrationBean(new MessageProviderServlet(), "/viewer/*");
-    }
+//    @Bean // Strictly speaking this bean is not necessary as boot creates a default
+//    ServletRegistrationBean myServletRegistrationBean(ConnectionFactory connectionFactory) {
+//    	return new ServletRegistrationBean(new MessageProviderServlet(), "/view/*");
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);   

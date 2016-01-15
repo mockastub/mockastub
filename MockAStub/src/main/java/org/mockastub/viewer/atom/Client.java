@@ -6,7 +6,9 @@ package org.mockastub.viewer.atom;
 import java.util.Date;
 
 import org.apache.abdera.Abdera;
+import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Entry;
+import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.Response.ResponseType;
 import org.apache.abdera.protocol.client.AbderaClient;
 import org.apache.abdera.protocol.client.ClientResponse;
@@ -43,12 +45,16 @@ public class Client {
 		}
 		return resp;
 	}
-//	public get(){
-//		ClientResponse resp = client.get("http://localhost:8080/abdera-server-example/employee");
-//		if (resp.getType() == ResponseType.SUCCESS) {
-//		  Document<Feed> doc = resp.getDocument();
-//		} else {
-//		  // there was an error
-//		}
-//	}
+	
+	public String get(){
+		ClientResponse resp = client.get("http://localhost:8081/viewer");
+		if (resp.getType() == ResponseType.SUCCESS) {
+		  Document<Feed> doc = resp.getDocument();
+		  return doc.toString();
+		} else {
+			String s = "Error while getting data from atom server.";
+		  System.out.println(s);
+		  return s;
+		}
+	}
 }

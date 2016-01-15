@@ -23,10 +23,10 @@ public class MessageInboundCollectionAdapter extends AbstractEntityCollectionAda
 	/**
 	 * The collection of recorded messages.
 	 */
-	private Map<Long, MessageEntry> messages = new HashMap<Long, MessageEntry>();
+	private Map<String, MessageEntry> messages = new HashMap<String, MessageEntry>();
 	private long nextId = 0;
-	private long getAndIncrementNextId(){
-		return nextId++;
+	private String getAndIncrementNextId(){
+		return Long.toString(nextId++);
 	}
 	public String getTitle(RequestContext arg0) {
 		return "MockAStub messages";
@@ -57,7 +57,7 @@ public class MessageInboundCollectionAdapter extends AbstractEntityCollectionAda
 	@Override
 	public String getId(MessageEntry messageEntry) throws ResponseContextException {
 		if (messageEntry != null)
-			return Long.toString(messageEntry.getId());
+			return messageEntry.getId();
 		return null;
 	}
 
