@@ -6,6 +6,8 @@ import javax.jms.Message;
 import javax.jms.Session;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerFactory;
+import org.apache.activemq.broker.BrokerService;
 import org.mockastub.viewer.atom.MessageProviderServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,11 +24,17 @@ import org.springframework.jms.core.MessageCreator;
 @EnableJms
 public class Application {
 
-    @Bean
-    public ActiveMQConnectionFactory connectionFactory() {
-        ActiveMQConnectionFactory result = new ActiveMQConnectionFactory();
-        return result;
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public BrokerService mainBroker() throws Exception {
+        return BrokerFactory.createBroker("broker:(tcp://localhost:61616,network:static:tcp://remotehost:61616)?persistent=false&useJmx=true");
     }
+
+    
+//    @Bean
+//    public ActiveMQConnectionFactory connectionFactory() {
+//        ActiveMQConnectionFactory result = new ActiveMQConnectionFactory();
+//        return result;
+//    }
     
     @Bean
     public JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
