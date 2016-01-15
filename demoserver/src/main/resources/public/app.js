@@ -27,6 +27,7 @@ app.controller('MainCtrl', ($scope, $http) => {
     $scope.obliterate = (target) => {
         $http.delete('/planet/' + target.name)
         .then((response) => {
+            $scope.oblitiration = response.data.message
             console.log(response)
         })
     }
