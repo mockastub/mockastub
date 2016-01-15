@@ -42,7 +42,7 @@ public class PlanetController {
     }
     
     @RequestMapping(value = "/planet/{name}", method = RequestMethod.DELETE)
-    public Object obliterate(@PathVariable("name") String name) {
+    public String obliterate(@PathVariable("name") String name) {
         MessageCreator messageCreator = new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
@@ -51,10 +51,9 @@ public class PlanetController {
         };
         
         jmsTemplate.send("planetBlowup", messageCreator);
-
-        Object response = new Object() {
-        	String message = String.format("obliterated %s", name);
-        };
+        
+        String response = String.format("{\"message\":\"%s\"}", String.format("obliterated %s", name));
+        System.out.println(response);
         return response;
     }
 
